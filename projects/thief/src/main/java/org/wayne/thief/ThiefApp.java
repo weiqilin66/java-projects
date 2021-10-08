@@ -26,7 +26,9 @@ import org.wayne.common.init.HtConfigSetting;
 @EnableDiscoveryClient
 public class ThiefApp {
     public static void main(String[] args) {
-        new HtConfigSetting();
-        SpringApplication.run(ThiefApp.class,args);
+        //        SpringApplication.run(ThiefApp.class, args);
+        SpringApplication application = new SpringApplication(ThiefApp.class);
+        application.addInitializers(new HtConfigSetting());
+        application.run(args);
     }
 }

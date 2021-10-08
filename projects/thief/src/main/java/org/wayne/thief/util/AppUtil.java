@@ -4,6 +4,8 @@ import lombok.Data;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EmbeddedValueResolverAware;
@@ -19,11 +21,15 @@ public class AppUtil implements EmbeddedValueResolverAware, ApplicationContextAw
     private static ChromeDriver chromeDriver;
     static ApplicationContext context;
     private static StringValueResolver resolver;
+    public static BeanDefinitionRegistry registry;
 
-    public synchronized static ChromeDriver getTbChromeDriver(){
-        if (chromeDriver==null) {
+    public synchronized static ChromeDriver getTbChromeDriver() {
+
+        if (chromeDriver == null) {
             final ChromeOptions chromeOptions = context.getBean("tbOptions", ChromeOptions.class);
-            chromeDriver =  new ChromeDriver(chromeOptions);
+            chromeDriver = new ChromeDriver(chromeOptions);
+            BeanDefinitionBuilder definitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(ChromeDriver.class);
+            registry.registerBeanDefinition("chromeDriver", definitionBuilder.getBeanDefinition());
         }
         return chromeDriver;
     }
@@ -35,6 +41,8 @@ public class AppUtil implements EmbeddedValueResolverAware, ApplicationContextAw
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        context=applicationContext;
+        context = applicationContext;
+        registry = (BeanDefinitionRegistry) context.getParentBeanFactory();
+
     }
 }

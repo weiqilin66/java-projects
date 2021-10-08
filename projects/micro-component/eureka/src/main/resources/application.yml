@@ -1,0 +1,36 @@
+# 集群部署
+# 启动多个Eureka实例, 多个实例之间互相注册,互相同步数据,共同组成一个Eureka集群,以某个可用注册中心为副本来同步数据
+# 1.修改host 2.2个配置文件
+# java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=a
+# 指定生效文件(application-a.yml生效) 默认只有application.yml生效
+
+# eureka 自我保护机制(服务正常,网络出问题了)
+# eureka server会统计15分钟内心跳失败比率,低于85%触发保护机制
+# 不从注册表剔除该eureka client
+# 依然可以接受新的服务注册和查询,但不会同步到其他节点(因为不知道注册信息是否正确),网络稳定后才会同步到其他节点
+
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka
+#  profiles:
+#    active:
+
+#在默认情况下eureka是server也是一个eureka client ,必须要指定一个 server
+eureka:
+  instance:
+    hostname: eureka
+  client: # 两个false来声明自己是service不是client
+    registerWithEureka: false # false当前项目不注册在注册中心上 集群部署要设为true互相注册
+    fetchRegistry: false # 是否从注册中心获取注册信息 集群部署要设为true
+    registry-fetch-interval-seconds: 5 #默认为30s 生产使用缺省时间，测试环境修改小点
+    lease-renewal-interval-in-seconds: 5 #心跳时间，生产使用缺省时间，即服务续约间隔时间（缺省为30秒，生产使用缺省时间，测试环境修改小点）
+    lease-expiration-duration-in-seconds: 10 #发呆时间，即服务续约到期时间（缺省为90秒，生产使用缺省时间，测试环境修改小点）
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+  server:
+    enableSelfPreservation: true #关闭自我保护模式（缺省为打开）
+    eviction-interval-timer-in-ms: 5000 #续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms），测试环境修改小点

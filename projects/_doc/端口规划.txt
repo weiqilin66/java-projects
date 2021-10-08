@@ -2,3 +2,5 @@
 8081 base-server
 8082 thief
 8083 card-server
+8761 注册中心
+8080 gateway网关

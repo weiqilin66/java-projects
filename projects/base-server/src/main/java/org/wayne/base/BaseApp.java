@@ -28,8 +28,10 @@ import org.wayne.common.init.HtConfigSetting;
 public class BaseApp {
 
     public static void main(String[] args) {
-        new HtConfigSetting();
-        SpringApplication.run(BaseApp.class, args);
+        //        SpringApplication.run(BaseApp.class, args);
+        SpringApplication application = new SpringApplication(BaseApp.class);
+        application.addInitializers(new HtConfigSetting());
+        application.run(args);
     }
 
 }

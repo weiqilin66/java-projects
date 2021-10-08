@@ -1,8 +1,8 @@
 package org.wayne.thief.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,7 +30,6 @@ import java.util.Random;
  * @author: lwq
  */
 @Service
-@SuppressWarnings("all")
 public class CardServiceImpl implements ICardService {
 
     public static final Logger log = LoggerFactory.getLogger(CardServiceImpl.class);
@@ -128,11 +127,11 @@ public class CardServiceImpl implements ICardService {
         final String all = json.replaceAll("g_page_config = ", "").replaceAll("}};", "");
         final String data = ReUtilQ.findAll(all, "\"data\":.*?\"bottomsearch\":");
         final String resData = data.replace("\"data\":", "").replace("},\"bottomsearch\":", "");
-        final Gson gson = new Gson();
         JsonRoot jsonRoot;
         try {
-            jsonRoot = gson.fromJson(resData, JsonRoot.class);
-        } catch (JsonSyntaxException e) {
+            final JSONObject jsonObject = JSONObject.parseObject(resData);
+            jsonRoot = JSONObject.toJavaObject(jsonObject, JsonRoot.class);
+        } catch (Exception e) {
             log.error("json数据转实体失败", e);
             try {
 

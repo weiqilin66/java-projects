@@ -1,6 +1,5 @@
 wayne:
-  host: 172.16.201.119
-#  host: localhost
+  host: localhost
 
 eureka:
   client:

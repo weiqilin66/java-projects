@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.wayne.common.init.HtConfigSetting;
 import org.wayne.common.init.redis.RedisConfig;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
@@ -25,6 +26,9 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableDiscoveryClient
 public class SwagApp {
     public static void main(String[] args) {
-        SpringApplication.run(SwagApp.class,args);
+        //        SpringApplication.run(SwagApp.class, args);
+        SpringApplication application = new SpringApplication(SwagApp.class);
+        application.addInitializers(new HtConfigSetting());
+        application.run(args);
     }
 }
