@@ -1,5 +1,6 @@
 wayne:
-  host: localhost
+  host: 172.16.201.119
+#  host: localhost
 
 eureka:
   client:
@@ -14,6 +15,7 @@ spring:
     url: jdbc:mysql://${wayne.host}:3306/card?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
+    # HikariDataSource 连接池配置
     hikari:
       minimum-idle: 5 #空闲时最小连接数
       maximum-pool-size: 20 #连接池大小
@@ -22,24 +24,25 @@ spring:
         prepStmtCacheSize: 250 #Prep缓存大小
         prepStmtCacheSqlLimit: 2048 #Prep缓存sql限制大小
         useServerPrepStmts: true #是否用服务缓存Prep
-  # spring cache
-  cache:
-    cache-names: c1,diff
-  # redis
+
+  # redis 属性注入类 RedisProperties
   redis:
+    # 单机配置
+    host: ${wayne.host}
     timeout: 60000ms   # 连接超时时间（毫秒）
     database: 0        # 数据库索引（默认为0）
     password:          # 密码，若没有，不填写
-    cluster:
-      nodes: ${wayne.host}:6379,${wayne.host}:6379
+    # 集群模式 单机&集群不能同时配置
+#    cluster:
+#      nodes:
 #        - ${wayne.host}:6379
-#        - 127.0.0.1:7032
-      max-redirects: 3
+#        - 127.0.0.1:6379
+#      max-redirects: 3
     lettuce:
       pool:
-        max-active: 100  # 连接池最大连接数（使用负值表示没有限制）
-        max-idle: 5      # 连接池中的最大空闲连接
-        min-idle: 2      # 连接池中的最小空闲连接
+        max-active: 8  # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 2      # 连接池中的最大空闲连接
+        min-idle: 1      # 连接池中的最小空闲连接
         max-wait: -1     # 连接池最大阻塞等待时间（使用负值表示没有限制）
 
 mybatis-plus:
