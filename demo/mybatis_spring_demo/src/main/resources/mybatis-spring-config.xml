@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--需要配置数据源,SqlSessionFactory,SqlSession,Mapper,事务控制器-->
+
+    <!--class只要是实现了javax.sql.Datasource的类都可以 所以可以是任意第三方数据库-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mybatis_demo?serverTimezone=UTC"/>
+        <property name="password" value="root"/>
+        <property name="username" value="root"/>
+
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+<!--    scope配置 多实例模式-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+<!--    ... Mapper 配置 现在一般只配置扫描包范围-->
+
+
+<!--    springAOP 事务管理-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+<!--    使用声明式事务管理 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+</beans>

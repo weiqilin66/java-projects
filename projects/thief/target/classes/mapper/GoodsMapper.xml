@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wayne.thief.mapper.GoodsMapper">
+
+    <insert id="batchInsert">
+        insert into goods (gid, etl_date, etl_time,
+        shop, kw, title, price,
+        sales, freight, img_url, detail_url)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{card.cardId}, #{date}, #{time},#{item.nick}, #{card.cardName}, #{item.raw_title},
+            #{item.view_price},#{item.view_sales}, #{item.view_fee},
+            #{item.pic_url},#{item.detail_url})
+        </foreach>
+
+    </insert>
+    <insert id="batchInsert2">
+        insert into goods (gid, etl_date, etl_time,
+        shop, kw, title, price,
+        sales, freight, img_url, detail_url)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{card.cardId}, #{date}, #{time},#{item.nick}, #{card.cardName}, #{item.raw_title},
+            #{item.view_price},#{item.view_sales}, #{item.view_fee},
+            #{item.pic_url},#{item.detail_url})
+        </foreach>
+
+    </insert>
+</mapper>

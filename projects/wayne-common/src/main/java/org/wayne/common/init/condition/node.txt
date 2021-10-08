@@ -1,0 +1,10 @@
+1.@ConditionalOnProperty
+application.properties 或 application.yml 文件中 mybean.enable 为 true 才会加载 xxx
+
+2.@ConditionalOnBean 和 ConditionalOnMissingBean
+  有时候我们需要某个 Bean 已经存在应用上下文时才会加载
+
+3.@Conditional(YxEnvCondition.class) 实现condition接口 返回true则加载 false不加载
+
+4.@ConditionalOnClass 和 @ConditionalOnMissingClass
+类存在时加载

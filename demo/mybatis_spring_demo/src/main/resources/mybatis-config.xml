@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--mybatis 基本配置文件-->
+<configuration>
+    <!--数据源有spring配置文件中配置-->
+    <settings>
+<!--        配置全局映射器启用缓存-->
+        <setting name="cacheEnabled" value="true"/>
+<!--        允许jdbc生产键-->
+        <setting name="useGeneratedKeys" value="true"/>
+<!--        配置默认执行器 REUSE重用预编译语句-->
+        <setting name="defaultExecutorType" value="REUSE"/>
+<!--        全局启用延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+<!--        数据库超时时间-->
+        <setting name="defaultStatementTimeout" value="25000"/>
+    </settings>
+    <!--指定映射器路径-->
+    <mappers>
+        <mapper resource="org/wayne/example/*.xml"/>
+    </mappers>
+<!-- 自定义类型处理器
+    <typeHandlers></typeHandlers>
+-->
+</configuration>

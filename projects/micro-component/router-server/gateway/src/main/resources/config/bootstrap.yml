@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+
+# 日志相关
+logging:
+  file:
+    path: /home/wayne/logs/gateway # 配置日志路径
+  level:
+    org.springframework.cloud.gateway: debug
+

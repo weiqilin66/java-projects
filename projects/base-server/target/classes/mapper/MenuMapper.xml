@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wayne.base.mapper.MenuMapper">
+
+    <!--property出现cant resolve symbol 'xx' 是实体使用lombok没有编译出get方法 不影响使用-->
+
+    <resultMap id="BaseResultMap" type="org.wayne.base.entity.Menu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="component" jdbcType="VARCHAR" property="component"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="iconCls" jdbcType="VARCHAR" property="iconCls"/>
+        <result column="parentId" jdbcType="INTEGER" property="parentId"/>
+        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <association property="meta" javaType="org.wayne.base.entity.Meta">
+            <result column="keepAlive" jdbcType="INTEGER" property="keepAlive"/>
+            <result column="requireAuth" jdbcType="BIT" property="requireAuth"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="MenuMap" type="org.wayne.base.entity.Menu" extends="BaseResultMap">
+        <collection property="children" ofType="org.wayne.base.entity.Menu">
+            <id column="id2" jdbcType="INTEGER" property="id"/>
+            <result column="url2" jdbcType="VARCHAR" property="url"/>
+            <result column="path2" jdbcType="VARCHAR" property="path"/>
+            <result column="component2" jdbcType="VARCHAR" property="component"/>
+            <result column="name2" jdbcType="VARCHAR" property="name"/>
+            <result column="iconCls2" jdbcType="VARCHAR" property="iconCls"/>
+            <result column="parentId2" jdbcType="INTEGER" property="parentId"/>
+            <result column="enabled2" jdbcType="BIT" property="enabled"/>
+            <association property="meta" javaType="org.wayne.base.entity.Meta">
+                <result column="keepAlive2" jdbcType="INTEGER" property="keepAlive"/>
+                <result column="requireAuth2" jdbcType="BIT" property="requireAuth"/>
+            </association>
+        </collection>
+    </resultMap>
+    <resultMap id="MenuWithRoles" type="org.wayne.base.entity.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="org.wayne.base.entity.Role">
+            <id column="roleId" jdbcType="INTEGER" property="id"/>
+            <result column="roleName" jdbcType="VARCHAR" property="name"/>
+            <result column="nameZh" jdbcType="VARCHAR" property="nameZh"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMenuById" resultMap="MenuMap">
+        select *
+        from (
+        select *
+        from menu
+        where parentId = 1
+        and enabled = 1
+        ) m1 /*查询所有一级菜单*/
+        INNER JOIN /*过滤:如果不存在该一级菜单下的二级菜单项,则不显示该一级菜单*/
+        (
+        select id as id2
+        , url as url2
+        , path as path2
+        , component as component2
+        , name as name2
+        , iconCls as iconCls2
+        , keepAlive as keepAlive2
+        , requireAuth as requireAuth2
+        , parentId as parentId2
+        , enabled as enabled2
+        from menu
+        where id in (
+        select mid
+        from menu_role
+        where rid in (
+        select rid
+        from hr_role
+        where hrid = #{id} /*筛选角色有权的二级菜单*/
+        ))
+        and enabled = 1
+        ) m2 /*查询二级菜单*/
+        on m1.id = m2.parentId2
+    </select>
+    <select id="t1" resultMap="BaseResultMap">
+        select *
+        from menu
+        where id = #{id}
+    </select>
+    <select id="getAllMenuRoles" resultType="org.wayne.base.entity.Role">
+        select r.*
+        from menu m
+        inner join menu_role mr
+        on m.id = mid
+        INNER JOIN role r
+        on mr.rid = r.id
+        where url = #{url}
+
+    </select>
+    <select id="getMenuWithRoles" resultMap="MenuWithRoles">
+        select m.*,r.id as roleId,r.name as roleName,r.nameZh
+        from menu m
+        inner join menu_role mr
+        on m.id = mid
+        INNER JOIN role r
+        on mr.rid = r.id
+    </select>
+
+</mapper>

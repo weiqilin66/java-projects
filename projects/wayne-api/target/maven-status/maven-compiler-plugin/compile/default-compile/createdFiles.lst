@@ -1,0 +1,12 @@
+org\wayne\api\entity\TbBo.class
+org\wayne\api\Demo.class
+org\wayne\api\entity\RespPageBeanQ.class
+org\wayne\api\entity\EnumExample.class
+org\wayne\api\entity\Goods.class
+org\wayne\api\entity\ConstantsQ.class
+org\wayne\api\entity\BaseReq.class
+org\wayne\api\entity\JsonRoot.class
+org\wayne\api\entity\RespBeanQ.class
+org\wayne\api\entity\Auctions.class
+org\wayne\api\entity\Card.class
+org\wayne\api\entity\BaseResp.class

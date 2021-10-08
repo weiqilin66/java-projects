@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wayne.base.mapper.GoodsMapper">
+
+    <resultMap id="BaseResultMap" type="org.wayne.base.entity.Goods">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="kw" column="kw" jdbcType="VARCHAR"/>
+        <result property="shop" column="shop" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="FLOAT"/>
+        <result property="sales" column="sales" jdbcType="INTEGER"/>
+        <result property="freight" column="freight" jdbcType="FLOAT"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="imgUrl" column="img_url" jdbcType="VARCHAR"/>
+        <result property="detailUrl" column="detail_url" jdbcType="VARCHAR"/>
+        <result property="etlDate" column="etl_date" jdbcType="VARCHAR"/>
+        <result property="etlTime" column="etl_time" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--宝可梦 剑盾-->
+    <sql id="pokmon">
+        and locate('6V',title)=0
+        and locate('闪光',title)=0
+        and locate('同捆',title)=0
+        and locate('收纳盒',title)=0
+    </sql>
+    <!--switch 舞力全开 2020-->
+    <sql id="wlqk">
+        and locate('腕带',title)=0
+    </sql>
+    <!--switch 马里奥赛车 8-->
+    <sql id="car">
+        and locate('方向盘',title)=0
+    </sql>
+    <!--收卡店铺-->
+    <select id="getMin" resultMap="BaseResultMap">
+        select * from goods a
+        inner join (
+        select min(price) as price from goods where title like concat('%',#{goodName},'%') and etl_date = #{now}
+        <include refid="conditions"/>
+        <if test="condition!=''">
+            AND locate(#{condition},title) = 0
+        </if>
+        <if test="goodName=='switch%宝可梦%剑盾'">
+            <include refid="pokmon"/>
+        </if>
+        <if test="goodName=='switch%马里奥赛车%8'">
+            <include refid="car"/>
+        </if>
+        )b
+        on a.price = b.price
+        where 1=1
+        AND title like concat('%',#{goodName},'%')
+        and etl_date = #{now}
+        and shop not in
+        <foreach collection="list" item="blackShop" separator="," close=")" open="(">
+            #{blackShop.name}
+        </foreach>
+    </select>
+    <!--筛掉不是二手卡的商品-->
+    <sql id="conditions">
+        AND price &gt;25 And price &lt;550
+        and locate('下载',title)=0
+        and locate('存档',title)=0
+        and locate('全新',title)=0
+        and locate('收藏',title)=0
+        and locate('限量',title)=0
+        and locate('限定',title)=0
+        and locate('数字码',title)=0
+        and locate('数字版',title)=0
+        and locate('会员',title)=0
+        and locate('兑换',title)=0
+        and locate('国行',title)=0
+        and locate('定制',title)=0
+        and locate('设定',title)=0
+        and locate('amiibo',title)=0
+
+    </sql>
+    <select id="byTitle" resultMap="BaseResultMap">
+        SELECT * FROM goods WHERE 1=1
+        AND title LIKE concat('%', #{title} ,'%')
+        AND shop = #{shop}
+        <if test="condition!=''">
+            AND locate(#{condition},title) = 0
+        </if>
+        AND etl_date in (
+        <foreach collection="days" item="day" separator=",">
+            #{day}
+        </foreach>
+        )
+        <include refid="conditions"/>
+        group by shop,etl_date
+    </select>
+    <!--指定必回收的店铺-->
+    <select id="getMax" resultMap="BaseResultMap">
+        select * from goods a
+        inner join(
+        select max(price) as price from goods where title like concat('%',#{goodName},'%') and etl_date = #{now}
+        and shop in
+        <foreach collection="list" item="secondShop" separator="," close=")" open="(">
+            #{secondShop.name}
+        </foreach>
+
+        <if test="condition!=''">
+            AND locate(#{condition},title) = 0
+        </if>
+        )b
+        on a.price = b.price
+        where 1=1
+        and a.etl_date = #{now}
+        and shop in
+        <foreach collection="list" item="secondShop" separator="," close=")" open="(">
+            #{secondShop.name}
+        </foreach>
+        and title like concat('%',#{goodName},'%')
+
+    </select>
+
+    <select id="selTotal" resultMap="BaseResultMap">
+        select * from goods where etl_date = #{now} limit 1
+    </select>
+
+    <select id="check" resultMap="BaseResultMap">
+        select * from goods where etl_date = #{date} limit 1
+    </select>
+    <select id="getMaxMinFromSHop" resultType="org.wayne.base.entity.Goods">
+        select * from goods where shop = #{shop} and title like concat('%',#{goodName},'%')
+        <if test="condition!=''">
+            AND locate(#{condition},title) = 0
+        </if>
+    </select>
+
+</mapper>
