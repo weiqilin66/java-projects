@@ -1,0 +1,42 @@
+
+# 以斜杆（/） 结尾的字符，被当做文件夹处理，文件夹下的所有文件将被忽略
+**/target/**
+# 局部及全局的同名文件忽略
+# /TOD 表示Git仅仅忽略项目根目录下的 TOD 文件，不包括 subdir/TOD
+# doc/*.txt 表示Git会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+# doc/**/*.txt 表示Git会忽略所有 doc目录下的 txt 格式的文件
+# 忽略所有 .a 结尾的文件
+# *.a
+# 但 lib.a 除外
+# !lib.a
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### 具体文件
+HELP.md
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
