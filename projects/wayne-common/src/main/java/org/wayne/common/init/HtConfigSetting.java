@@ -27,7 +27,7 @@ public class HtConfigSetting implements ApplicationContextInitializer<Configurab
         Setting setting = new Setting("myHutool.setting");
 
         final Map configSetting = setting.getMap("config");
-        StaticLog.info("初始化configSetting:{}", configSetting);
+        StaticLog.info("初始化htConfigSetting:{}", configSetting);
         final Set<Map.Entry> set = configSetting.entrySet();
         set.parallelStream().forEach(entry -> System.setProperty(entry.getKey().toString(), String.valueOf(entry.getValue())));
     }
