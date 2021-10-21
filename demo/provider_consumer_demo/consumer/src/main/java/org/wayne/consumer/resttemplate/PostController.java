@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.wayne.demo.User;
+import org.wayne.consumer.entity.User;
 
 import javax.annotation.Resource;
 import java.net.URI;
@@ -54,4 +54,6 @@ public class PostController {
         System.out.println(uri);
         return restTemplate.getForObject(uri,String.class);
     }
+
+
 }

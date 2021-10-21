@@ -2,7 +2,7 @@ package org.wayne.consumer.openfeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.wayne.demo.User;
+import org.wayne.consumer.entity.User;
 
 import javax.annotation.Resource;
 

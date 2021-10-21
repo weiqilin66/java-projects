@@ -2,7 +2,7 @@ package org.wayne.consumer.hystrix.batchCmd;
 
 
 import com.netflix.hystrix.*;
-import org.wayne.demo.User;
+import org.wayne.consumer.entity.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

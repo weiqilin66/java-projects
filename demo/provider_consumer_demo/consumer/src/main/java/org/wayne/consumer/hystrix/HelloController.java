@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.wayne.consumer.entity.User;
 import org.wayne.consumer.hystrix.batchCmd.AnnotationBatch;
 import org.wayne.consumer.hystrix.batchCmd.UserCollapseCommand;
 import org.wayne.consumer.hystrix.batchCmd.UserService;
-import org.wayne.demo.User;
 
 import javax.annotation.Resource;
 import java.util.concurrent.ExecutionException;

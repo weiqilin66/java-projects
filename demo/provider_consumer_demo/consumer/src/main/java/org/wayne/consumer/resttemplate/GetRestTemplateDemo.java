@@ -1,5 +1,6 @@
 package org.wayne.consumer.resttemplate;
 
+import com.alibaba.fastjson.JSONObject;
 import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/restTemplate")
-public class GetController {
+public class GetRestTemplateDemo {
 
     @Resource
     RestTemplate restTemplate;
@@ -61,6 +62,13 @@ public class GetController {
         return s;
     }
 
+    /**
+     * 基本数据类型传参
+     */
+    @RequestMapping("/t1")
+    public Object t1(){
+        return restTemplateOne.getForObject("http://localhost:6001/ccbc/credit/downLoadImages?seq={1}", String.class, 272);
+    }
 
     /**
      * hello1()不可用

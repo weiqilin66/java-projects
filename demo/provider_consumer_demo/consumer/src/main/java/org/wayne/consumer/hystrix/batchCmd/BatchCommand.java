@@ -2,7 +2,7 @@ package org.wayne.consumer.hystrix.batchCmd;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
-import org.wayne.demo.User;
+import org.wayne.consumer.entity.User;
 
 import java.util.List;
 

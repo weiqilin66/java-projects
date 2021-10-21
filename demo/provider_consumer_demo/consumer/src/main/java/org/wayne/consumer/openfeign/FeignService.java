@@ -2,7 +2,7 @@ package org.wayne.consumer.openfeign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import org.wayne.demo.User;
+import org.wayne.consumer.entity.User;
 import org.wayne.consumer.openfeignandhystrix.IFallBackFactory;
 
 /**

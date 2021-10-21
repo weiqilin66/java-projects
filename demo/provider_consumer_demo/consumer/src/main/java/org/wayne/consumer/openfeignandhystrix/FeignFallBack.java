@@ -2,8 +2,8 @@ package org.wayne.consumer.openfeignandhystrix;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.wayne.consumer.entity.User;
 import org.wayne.consumer.openfeign.FeignService;
-import org.wayne.demo.User;
 
 /**
  * @Description: openfeign+hystrix 服务降级方式1
