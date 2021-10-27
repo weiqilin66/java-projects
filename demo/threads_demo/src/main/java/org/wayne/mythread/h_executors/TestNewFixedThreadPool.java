@@ -14,4 +14,27 @@ public class TestNewFixedThreadPool  {
     //在某个线程被显式关闭之前,池中的线程将一直存在
     ExecutorService pool = Executors.newFixedThreadPool(3);
 
+    public void t(){
+        int n = 0;
+        for(;;){
+            pool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread().getName()+"is running");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            System.out.println(String.format("pool.execute执行%s次", n++));//线程池3个都被占用时其他的进入等待,等待的多了会outOfMemory
+        }
+    }
+
+    public static void main(String[] args) {
+        new TestNewFixedThreadPool().t();
+
+    }
+
 }

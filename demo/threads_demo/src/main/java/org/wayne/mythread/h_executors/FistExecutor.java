@@ -7,6 +7,10 @@ import java.util.concurrent.*;
 /**
  * @Description:
  *  FixedThreadPool 示例
+ *  不同线程接口: Callable有返回值 Runnable无返回值
+ *  线程池执行线程
+ *  void pool.execute(runnable) 无返回值
+ *  Future pool.commit(callable) 有返回值
  * @author: LinWeiQi
  */
 public class FistExecutor {

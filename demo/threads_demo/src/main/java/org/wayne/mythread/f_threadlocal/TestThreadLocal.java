@@ -22,11 +22,12 @@ public class TestThreadLocal {
         System.out.println(new TestThreadLocal().y.get());
         System.out.println(x.get());
     }
+
     //解决初始值为null的问题
     public static ThreadLocal2initialValue x = new ThreadLocal2initialValue();
     public  ThreadLocal2initialValue y = new ThreadLocal2initialValue();
     //继承ThreadLocal重写initialValue方法
-    static public class ThreadLocal2initialValue extends ThreadLocal {
+    static class ThreadLocal2initialValue extends ThreadLocal {
         @Override
         protected Object initialValue() {
             return "我是默认值 第一次get不再为null";

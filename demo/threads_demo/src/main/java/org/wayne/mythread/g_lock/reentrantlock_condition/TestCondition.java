@@ -42,7 +42,7 @@ public class TestCondition {
             lock.lock();//获得锁,获取不到阻塞
             try {
                 System.out.println(" await时间为" + System.currentTimeMillis());
-                condition.await();
+                condition.await();//阻塞等待
                 System.out.println("这是condition.await()方法之后的语句，condition.signal()方法之后我才被执行");
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -55,7 +55,7 @@ public class TestCondition {
             lock.lock();
             try {
                 System.out.println("signal时间为" + System.currentTimeMillis());
-                condition.signal();
+                condition.signal();//通知唤醒
                 Thread.sleep(3000);
                 System.out.println("这是condition.signal()方法之后的语句");
             } finally {

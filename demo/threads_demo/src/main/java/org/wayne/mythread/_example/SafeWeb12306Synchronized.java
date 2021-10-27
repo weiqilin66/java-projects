@@ -1,7 +1,7 @@
 package org.wayne.mythread._example;
 
 /**
- * @Description: 队列+锁机制
+ * @Description: synchronized锁
  * @author: lwq
  */
 public class SafeWeb12306Synchronized implements Runnable {

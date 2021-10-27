@@ -13,10 +13,11 @@ public class TestConditions {
 
     public static void main(String[] args) throws InterruptedException {
         TestConditions t = new TestConditions();
-        MyThread m1 = new MyThread(t);
-        MyThread2 m2= new MyThread2(t);
+        MyThreadWaitA m1 = new MyThreadWaitA(t);
+        MyThreadWaitB m2= new MyThreadWaitB(t);
         m1.start();
         m2.start();
+        Thread.sleep(3000);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

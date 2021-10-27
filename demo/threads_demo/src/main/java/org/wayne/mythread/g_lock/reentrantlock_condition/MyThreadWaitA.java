@@ -4,15 +4,15 @@ package org.wayne.mythread.g_lock.reentrantlock_condition;
  * @Description:
  * @author: LinWeiQi
  */
-public class MyThread2 extends Thread {
+public class MyThreadWaitA extends Thread {
     private TestConditions testConditions;
 
-    public MyThread2(TestConditions testConditions){
+    public MyThreadWaitA(TestConditions testConditions){
         this.testConditions = testConditions;
     };
 
     @Override
     public void run() {
-        testConditions.awaitB();
+        testConditions.awaitA();
     }
 }

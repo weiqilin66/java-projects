@@ -4,8 +4,9 @@ package org.wayne.mythread.base.a_thread;
 /**
  * @Description:
  * stop()结束[可能死锁,不推荐使用]
- * 推荐实现Runnable接口方式开发多线程，因为Java单继承但是可以实现多个接口
- * new Thread()创建线程 start()开启线程, start()方法不保证立即运行,由cpu安排时间片调用,调用run()方法时为普通调用不启动线程
+ * new Thread()创建线程 start()开启线程
+ * start()方法不保证立即运行,由cpu安排时间片调用
+ * 调用run()方法时为普通调用不启动线程
  * synchronized 可解决  **单对象实例变量**   的线程安全问题
  *
  * @author: LinWeiQi
