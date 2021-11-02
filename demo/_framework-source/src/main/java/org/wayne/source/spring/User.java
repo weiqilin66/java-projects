@@ -1,4 +1,4 @@
-package org.wayne.getbean;
+package org.wayne.source.spring;
 
 /**
  * @Description:

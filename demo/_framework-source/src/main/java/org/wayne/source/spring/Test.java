@@ -1,4 +1,4 @@
-package org.wayne.getbean;
+package org.wayne.source.spring;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
