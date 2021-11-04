@@ -1,7 +1,8 @@
-package org.wayne;
+package org.wayne.test.demo;
 
 /**
  * @Description: finally如果抛出异常程序还会继续往下执行么?-->不会
+ * 无异常情况下finally在return前执行
  * @author: lwq
  */
 public class TestFinally {
