@@ -16,6 +16,7 @@ public class MyJedis {
 //        System.out.println(ping);
 
         final JedisConfig jedis = new JedisConfig();
+        // 食用 new一个该接口的对象出来
         jedis.execute(new CallWithJedis() {
             @Override
             public void call(Jedis jedis) {

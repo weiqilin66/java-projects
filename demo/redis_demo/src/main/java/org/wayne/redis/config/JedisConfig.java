@@ -16,7 +16,8 @@ public class JedisConfig {
     public JedisConfig(){
         jedisPool=new JedisPool("192.168.45.45");
     }
-
+    // 设定 接口作为参数
+    // 封装内容: 接口的方法的参数
     public void execute(CallWithJedis callWithJedis) throws Exception {
         //try with source被隐藏了
         try(Jedis jedis = jedisPool.getResource()){
