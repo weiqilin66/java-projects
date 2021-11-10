@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mybatis_demo</artifactId>
+    <artifactId>mybatis_demo_proxy_demo</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
