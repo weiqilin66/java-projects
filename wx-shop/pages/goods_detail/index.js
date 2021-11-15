@@ -48,7 +48,9 @@ Page({
   },
   // 获取商品详情数据
   async getGoodsDetail(goods_id) {
-    const goodsObj = await request({ url: "/goods/detail", data: { goods_id } });
+    const goods = await request({ url: "https://api-hmugo-web.itheima.net/api/public/v1/goods/detail", data: { goods_id } });
+    console.log("商品详情页",goods);
+    let goodsObj = goods.data.message;
     this.GoodsInfo = goodsObj;
     // 1 获取缓存中的商品收藏的数组
     let collect = wx.getStorageSync("collect") || [];

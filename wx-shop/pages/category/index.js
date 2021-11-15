@@ -75,10 +75,10 @@ Page({
     //     })
     //   })
 
-    // 1 使用es7的async await来发送请求
-    const res = await request({ url: "/categories" });
-    // this.Cates = res.data.message;
-    this.Cates = res;
+    // 1 使用es7的async await来发送请求 每个js需要单独引入runtime.js 且旧机型可能不匹配哦
+    const res = await request({ url: "https://api-hmugo-web.itheima.net/api/public/v1/categories" });
+    this.Cates = res.data.message;
+    // this.Cates = res;
     // 把接口的数据存入到本地存储中
     wx.setStorageSync("cates", { time: Date.now(), data: this.Cates });
     // 构造左侧的大菜单数据
@@ -98,7 +98,6 @@ Page({
     3 根据不同的索引来渲染右侧的商品内容
      */
     const { index } = e.currentTarget.dataset;
-
     let rightContent = this.Cates[index].children;
     this.setData({
       currentIndex: index,

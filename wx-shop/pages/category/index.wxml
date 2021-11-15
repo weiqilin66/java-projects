@@ -26,6 +26,7 @@
           <text class="delimiter">/</text>
         </view>
         <view class="goods_list">
+         <!-- url传参 -->
           <navigator
           wx:for="{{item1.children}}"
           wx:for-index="index2"

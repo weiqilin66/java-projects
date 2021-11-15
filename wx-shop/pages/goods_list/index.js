@@ -27,6 +27,7 @@ import { request } from "../../request/index.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
 Page({
   data: {
+    // 页面静态数据
     tabs: [
       {
         id: 0,
@@ -57,6 +58,7 @@ Page({
   totalPages:1,
   /**
    * 生命周期函数--监听页面加载
+   * options接收url传参的map
    */
   onLoad: function (options) {
     this.QueryParams.cid=options.cid||"";
@@ -68,15 +70,18 @@ Page({
 
   // 获取商品列表数据
   async getGoodsList(){
-    const res=await request({url:"/goods/search",data:this.QueryParams});
+    // get 传参
+    const res=await request({url:"https://api-hmugo-web.itheima.net/api/public/v1/goods/search",data:this.QueryParams});
+    console.log("商品列表",res);
+    let message = res.data.message;
     // 获取 总条数
-    const total=res.total;
+    const total=message.total;
     // 计算总页数
     this.totalPages=Math.ceil(total/this.QueryParams.pagesize);
     // console.log(this.totalPages);
     this.setData({
       // 拼接了数组
-      goodsList:[...this.data.goodsList,...res.goods]
+      goodsList:[...this.data.goodsList,...message.goods]
     })
 
     // 关闭下拉刷新的窗口 如果没有调用下拉刷新的窗口 直接关闭也不会报错  

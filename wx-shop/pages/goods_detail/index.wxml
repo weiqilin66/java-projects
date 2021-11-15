@@ -23,7 +23,7 @@
     <view class="collect_text">收藏</view>
   </view>
 </view>
-
+<!-- 富文本 后台返回例如<div *>的标签数据 -->
 <view class="goods_info">
   <view class="goods_info_title">图文详情</view>
   <view class="goods_info_content">
@@ -34,6 +34,7 @@
 </view>
 
 <view class="btm_tool">
+  <!-- 让view包含button -->
   <view class="tool_item">
     <view class="iconfont icon-kefu"></view>
     <view>客服</view>
@@ -44,6 +45,7 @@
     <view>分享</view>
     <button open-type="share"></button>
   </view>
+  <!-- 跳转到tableBar必须设置open-type -->
   <navigator open-type="switchTab" url="/pages/cart/index" class="tool_item">
     <view class="iconfont icon-gouwuche"></view>
     <view>购物车</view>
