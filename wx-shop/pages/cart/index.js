@@ -89,6 +89,7 @@ Page({
     try {
       // 1 获取 权限状态
       const res1 = await getSetting();
+      // 属性名怪异 使用[]获取属性 此时属性名字为scope.address
       const scopeAddress = res1.authSetting["scope.address"];
       // 2 判断 权限状态
       if (scopeAddress === false) {
