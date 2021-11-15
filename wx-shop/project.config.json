@@ -44,7 +44,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.7.7",
   "appid": "wx7c438719b2c42653",
-  "projectname": "02-pyg",
+  "projectname": "pyg",
   "debugOptions": {
     "hidedInDevtools": []
   },
