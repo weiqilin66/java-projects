@@ -92,6 +92,7 @@ export const login=()=>{
     wx.login({
       timeout:10000,
       success: (result) => {
+        console.log("微信登录成功,返回:",result);
         resolve(result);
       },
       fail: (err) => {

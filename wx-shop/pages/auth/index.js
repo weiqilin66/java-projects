@@ -13,7 +13,9 @@ Page({
     const { code } = await login();
     const loginParams={ encryptedData, rawData, iv, signature ,code};
     //  3 发送请求 获取用户的token
-    const {token}=await request({url:"/users/wxlogin",data:loginParams,method:"post"});
+    const {token}=await request({url:"https://api-hmugo-web.itheima.net/api/public/v1/users/wxlogin",data:loginParams,method:"post"});
+    console.log("token:",token);
+
     // 4 把token存入缓存中 同时跳转回上一个页面
     wx.setStorageSync("token", token);
     wx.navigateBack({

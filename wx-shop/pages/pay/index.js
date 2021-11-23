@@ -84,7 +84,7 @@ Page({
       const { pay } = await request({ url: "/my/orders/req_unifiedorder", method: "POST", data: { order_number } });
       // 6 发起微信支付 
       await requestPayment(pay);
-      // 7 查询后台 订单状态
+      // 7 查询后台 订单状态> 数据状态后台为准
       const res = await request({ url: "/my/orders/chkOrder", method: "POST", data: { order_number } });
       await showToast({ title: "支付成功" });
       // 8 手动删除缓存中 已经支付了的商品

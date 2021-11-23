@@ -29,9 +29,7 @@ public class FileUtilQ {
      */
     public static String read(String filePath){
         StringBuilder res = new StringBuilder();
-
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(filePath));
+        try(BufferedReader in = new BufferedReader(new FileReader(filePath))) {
             String str;
             while ((str = in.readLine()) != null) {
                 res.append(str);
