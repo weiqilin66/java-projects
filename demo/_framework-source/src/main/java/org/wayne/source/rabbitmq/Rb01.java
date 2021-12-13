@@ -12,10 +12,13 @@ public class Rb01 {
 
     public static void main(String[] args) throws Exception {
         final Channel singleConnectionChannel = Rb00.getSingleConnectionChannel();
-        provider(singleConnectionChannel);
+        for (int i = 0; i < 100; i++) {
+
+            provider(singleConnectionChannel);
+        }
         System.out.println("投递完毕");
         Thread.sleep(10000);
-        consumer(singleConnectionChannel);
+//        consumer(singleConnectionChannel);
         System.out.println("消费完毕");
 
         Rb00.getConnection().close();
@@ -25,7 +28,7 @@ public class Rb01 {
         final byte[] bytes = "hello world".getBytes(StandardCharsets.UTF_8);
         boolean mandatory = true;
         // 发送
-        channel.basicPublish("46-paph-credit-ex","46-paph-credit-router1",mandatory,
+        channel.basicPublish("46-paph-credit-ex","46-paph-credit-router",mandatory,
                 new AMQP.BasicProperties.Builder().
                         contentType("applicaiton/json;charset=utf-8")
                         .priority(1)//优先级
